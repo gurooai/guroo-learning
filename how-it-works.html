@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works – Guroo AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:   #0482F1;
+      --cyan:   #0482F1;
+      --yellow: #F9D70F;
+      --navy:   #001E3F;
+      --teal:   #001E3F;
+      --border: #BDDAFE;
+      --bg-ice: #F5FAFF;
+      --muted:  #4497F5;
+      --gray:   #013468;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Onest', sans-serif; color: #171d1c; overflow-x: hidden; background: #fff; }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      padding: 25px 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 1px 4px rgba(0,30,63,0.08);
+    }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 18px; font-weight: 500; color: var(--teal); }
+    .nav-links a.active { font-weight: 700; color: var(--cyan); }
+    .nav-cta {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--teal);
+      padding: 96px 100px 104px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,130,241,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 25%;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,215,15,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-label {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--yellow);
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 24px;
+    }
+    .page-header h1 {
+      font-size: 56px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+    .page-header p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ── STEP PREVIEW BAR ── */
+    .step-preview {
+      background: var(--bg-ice);
+      padding: 48px 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    .preview-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      text-align: center;
+      cursor: default;
+    }
+    .preview-step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: var(--yellow);
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .preview-step-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    .preview-step-sub {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      max-width: 120px;
+    }
+    .preview-arrow {
+      color: var(--border);
+      font-size: 22px;
+      font-weight: 300;
+      padding: 0 8px;
+      padding-bottom: 28px;
+      flex-shrink: 0;
+    }
+
+    /* ── STEPS ── */
+    .steps-section {
+      padding: 96px 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--yellow);
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 16px;
+    }
+
+    .steps-head {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .steps-head h2 {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1.1;
+    }
+    .steps-head p {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 40px;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .step-row:last-child { border-bottom: none; }
+
+    .step-num-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding-top: 6px;
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: var(--yellow);
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-line {
+      width: 2px;
+      flex: 1;
+      min-height: 40px;
+      background: var(--border);
+    }
+
+    .step-content { padding-bottom: 8px; }
+    .step-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .step-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--teal);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .step-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.8;
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+    .step-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .step-highlight {
+      background: var(--bg-ice);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    /* ── DIFFERENCE ── */
+    .difference {
+      background: var(--teal);
+      padding: 96px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 56px;
+    }
+    .difference-head {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .label-tag-dark {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--yellow);
+      padding: 4px 14px;
+      border-radius: 99px;
+    }
+    .difference-head h2 {
+      font-size: 44px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+    }
+    .difference-head p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      line-height: 1.75;
+    }
+    .compare-table {
+      width: 100%;
+      max-width: 860px;
+      border-collapse: collapse;
+    }
+    .compare-table th {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      text-align: left;
+    }
+    .compare-table th:first-child { color: rgba(255,255,255,0.4); width: 180px; }
+    .compare-table th:nth-child(2) { color: rgba(255,255,255,0.4); }
+    .compare-table th:last-child { color: var(--yellow); }
+    .compare-table td {
+      padding: 18px 24px;
+      font-size: 15px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      vertical-align: top;
+    }
+    .compare-table td:first-child { color: #fff; font-weight: 700; width: 180px; }
+    .compare-table td:nth-child(2) { color: rgba(255,255,255,0.4); }
+    .compare-table td:last-child { color: var(--yellow); font-weight: 600; }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      background: var(--bg-ice);
+      padding: 96px 100px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .bottom-cta h2 { font-size: 44px; font-weight: 800; color: var(--teal); line-height: 1.15; }
+    .bottom-cta p { font-size: 17px; color: var(--gray); max-width: 480px; line-height: 1.75; }
+    .cta-btn {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--teal);
+      border-radius: 100px 100px 0 0;
+      padding: 48px 100px;
+      color: #fff;
+    }
+    .footer-logo { margin-bottom: 51px; display: flex; align-items: center; gap: 8px; }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 22px;
+      max-width: 1240px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { color: #fff; text-decoration: none; font-size: 16px; font-weight: 400; }
+    .footer-contact-row { display: flex; align-items: center; gap: 16px; font-size: 16px; margin-bottom: 12px; }
+    .footer-contact-row svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .follow-label { font-size: 16px; font-weight: 700; margin-bottom: 21px; }
+    .footer-socials { display: flex; gap: 16px; }
+    .social-icon {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.15);
+    }
+    .footer-hr { border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 22px 0; }
+    .footer-legal { font-size: 14px; line-height: 1.7; opacity: 0.65; max-width: 1240px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <a class="logo" href="index.html">
+    <img src="guroo-logo-blue.png" alt="Guroo AI" style="height:48px; object-fit:contain;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="programs.html">Courses</a></li>
+    <li><a href="how-it-works.html" class="active">How It Works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="https://learning.guroo.io/login" style="text-decoration:none;">
+    <button class="nav-cta">
+      Start Learning
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="#001E3F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </a>
+</nav>
+
+<!-- ══════════════ PAGE HEADER ══════════════ -->
+<section class="page-header">
+  <div class="header-label">How It Works</div>
+  <h1>Learning by Doing. Every Step of the Way.</h1>
+  <p>No passive lectures. No completion badges. Every program is built around real work, AI feedback, and your own professional context.</p>
+</section>
+
+<!-- ══════════════ STEP PREVIEW BAR ══════════════ -->
+<div class="step-preview">
+
+  <div class="preview-step">
+    <div class="preview-step-num">1</div>
+    <div class="preview-step-label">Learn</div>
+    <div class="preview-step-sub">Expert-built briefs & frameworks</div>
+  </div>
+
+  <div class="preview-arrow">→</div>
+
+  <div class="preview-step">
+    <div class="preview-step-num">2</div>
+    <div class="preview-step-label">Apply</div>
+    <div class="preview-step-sub">Real assignments in your own context</div>
+  </div>
+
+  <div class="preview-arrow">→</div>
+
+  <div class="preview-step">
+    <div class="preview-step-num">3</div>
+    <div class="preview-step-label">Improve</div>
+    <div class="preview-step-sub">Instant AI feedback on every inquiry</div>
+  </div>
+
+  <div class="preview-arrow">→</div>
+
+  <div class="preview-step">
+    <div class="preview-step-num">4</div>
+    <div class="preview-step-label">Contextualize</div>
+    <div class="preview-step-sub">Mapped to your industry & role</div>
+  </div>
+
+  <div class="preview-arrow">→</div>
+
+  <div class="preview-step">
+    <div class="preview-step-num">5</div>
+    <div class="preview-step-label">Self-Paced</div>
+    <div class="preview-step-sub">Your schedule, your pace</div>
+  </div>
+
+</div>
+
+<!-- ══════════════ STEPS ══════════════ -->
+<section class="steps-section">
+
+  <div class="steps-head">
+    <span class="section-label">The Process</span>
+    <h2>Five Steps to Real Capability</h2>
+    <p>Each step builds on the last — from understanding to application to mastery.</p>
+  </div>
+
+  <div class="steps-list">
+
+    <div class="step-row">
+      <div class="step-num-col">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step One</div>
+        <div class="step-title">Learn</div>
+        <p class="step-desc">Executive-grade concepts distilled into focused briefs. Each module delivers only what's essential — the frameworks, mental models, and real-world cases that practitioners actually use. No filler, no fluff. You'll study the knowledge that drives results, built by subject-matter experts with 10+ years of field experience.</p>
+        <div class="step-highlights">
+          <span class="step-highlight">Expert-built content</span>
+          <span class="step-highlight">Focused briefs</span>
+          <span class="step-highlight">Real case studies</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num-col">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step Two</div>
+        <div class="step-title">Apply</div>
+        <p class="step-desc">Every lesson ends with a hands-on assignment. You don't apply concepts to a fictional case study — you apply them to your own organization, industry, or professional role. This is how learning becomes capability: by doing real work with real stakes in your actual context.</p>
+        <div class="step-highlights">
+          <span class="step-highlight">Real assignments</span>
+          <span class="step-highlight">Your own context</span>
+          <span class="step-highlight">Immediate practice</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num-col">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step Three</div>
+        <div class="step-title">Improve</div>
+        <p class="step-desc">Every submission is evaluated instantly by AI trained on rubrics built by domain experts. You receive specific, actionable feedback — not just a score. You'll know exactly what worked, what didn't, and how to strengthen it. No waiting for a reviewer. No vague grades. Just clear direction to keep improving.</p>
+        <div class="step-highlights">
+          <span class="step-highlight">Instant AI feedback</span>
+          <span class="step-highlight">Expert-built rubrics</span>
+          <span class="step-highlight">Actionable suggestions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num-col">
+        <div class="step-num">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step Four</div>
+        <div class="step-title">Contextualize</div>
+        <p class="step-desc">Every module is designed to meet you where you work. You bring your own industry knowledge, role, and real challenges to the material — so what you learn maps directly to what you do. This isn't generic training. It's learning that's shaped by your professional reality from the very first module.</p>
+        <div class="step-highlights">
+          <span class="step-highlight">Industry-relevant</span>
+          <span class="step-highlight">Role-specific application</span>
+          <span class="step-highlight">Your professional lens</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num-col">
+        <div class="step-num">5</div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag">Step Five</div>
+        <div class="step-title">Self-Paced</div>
+        <p class="step-desc">Each program comes with a recommended completion window to keep you on track — but you're always in control. Learn on your schedule, revisit modules as needed, and explore the areas most relevant to your work. Pick up exactly where you left off, from any device, at any time. The structure guides you; it doesn't constrain you.</p>
+        <div class="step-highlights">
+          <span class="step-highlight">Recommended timeline</span>
+          <span class="step-highlight">No hard deadlines</span>
+          <span class="step-highlight">Any device, anytime</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ COMPARISON ══════════════ -->
+<section class="difference">
+  <div class="difference-head">
+    <span class="label-tag-dark">The Difference</span>
+    <h2>Guroo AI vs. Traditional Learning</h2>
+    <p>Most platforms optimize for content delivery. We optimize for capability.</p>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Traditional Platforms</th>
+        <th>Guroo AI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Learning format</td>
+        <td>Passive video lectures</td>
+        <td>✓ Hands-on assignments</td>
+      </tr>
+      <tr>
+        <td>Feedback</td>
+        <td>None or delayed peer review</td>
+        <td>✓ Instant AI feedback on every inquiry</td>
+      </tr>
+      <tr>
+        <td>AI Support</td>
+        <td>None or basic FAQ</td>
+        <td>✓ AI chat interface embedded in every module — AI-powered, not just AI-supported</td>
+      </tr>
+      <tr>
+        <td>Content relevance</td>
+        <td>Generic case studies</td>
+        <td>✓ Applied to your own industry & role</td>
+      </tr>
+      <tr>
+        <td>Schedule</td>
+        <td>Fixed cohort dates</td>
+        <td>✓ Fully self-paced with recommended timelines</td>
+      </tr>
+      <tr>
+        <td>Outcome</td>
+        <td>A completion certificate</td>
+        <td>✓ Applied work you actually used in your role — not a project, a real application</td>
+      </tr>
+      <tr>
+        <td>Curriculum quality</td>
+        <td>Varies widely</td>
+        <td>✓ Built by Ivy League practitioners with 10+ years experience</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════ BOTTOM CTA ══════════════ -->
+<section class="bottom-cta">
+  <h2>Ready to Learn by Doing?</h2>
+  <p>Browse our programs and start building real capability — on your schedule, with AI feedback on every step.</p>
+  <a class="cta-btn" href="programs.html">Browse Programs</a>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-logo">
+    <img src="guroo-logo-blue.png" alt="Guroo AI" style="height:48px; object-fit:contain; filter: brightness(0) invert(1);">
+  </div>
+
+  <div class="footer-cols">
+    <div>
+      <ul class="footer-links">
+        <li><a href="programs.html">Courses</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#faq">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-contact-row">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1.5" y="3.5" width="15" height="11" rx="1.5" stroke="white" stroke-width="1.5"/><path d="M1.5 6l7.5 4.5L16.5 6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        hello@guroo.ai
+      </div>
+    </div>
+    <div>
+      <p class="follow-label">Follow us</p>
+      <div class="footer-socials">
+        <div class="social-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </div>
+        <div class="social-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+        </div>
+        <div class="social-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="footer-hr"/>
+  <p class="footer-legal">&copy; 2025 Guroo AI. All rights reserved. Guroo AI provides structured, application-first learning programs powered by AI feedback.</p>
+</footer>
+
+</body>
+</html>
