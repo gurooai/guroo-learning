@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guroo AI – Turn Learning Into Real-World Capability</title>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #0482F1;
+      --cyan:    #0482F1;
+      --yellow:  #F9D70F;
+      --navy:    #001E3F;
+      --teal:    #001E3F;
+      --border:  #BDDAFE;
+      --bg-ice:  #F5FAFF;
+      --bg-sky:  rgba(206,228,255,0.25);
+      --muted:   #4497F5;
+      --gray:    #013468;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Onest', sans-serif;
+      color: #171d1c;
+      overflow-x: hidden;
+    }
+
+    /* ──────────────── NAV ──────────────── */
+    nav {
+      background: #fff;
+      padding: 25px 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 1px 4px rgba(0,30,63,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border: 2.5px solid var(--teal);
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-icon::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--teal);
+      border-radius: 50%;
+    }
+    .logo-icon::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border: 2px solid var(--teal);
+      border-radius: 50%;
+    }
+
+    .logo-clear  { font-size: 22px; font-weight: 800; color: var(--teal); }
+    .logo-credit { font-size: 22px; font-weight: 800; color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--teal);
+    }
+    .nav-links a.active { font-weight: 700; color: var(--cyan); }
+
+    .nav-cta {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    /* ──────────────── HERO ──────────────── */
+    .hero {
+      background: #fff;
+      padding: 48px 100px;
+      position: relative;
+      overflow: hidden;
+      min-height: 722px;
+    }
+
+    .hero-bg-blob {
+      position: absolute;
+      width: 552px; height: 552px;
+      left: -302px; top: 172px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,130,241,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 620px 1fr;
+      min-height: 660px;
+      gap: 0;
+      max-width: 1240px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 660px;
+    }
+
+    .hero-badge-wrap { display: flex; flex-direction: column; gap: 0; }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--blue);
+      border-bottom: 4px solid var(--yellow);
+      padding-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 58px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1.08;
+      margin-top: 10px;
+    }
+
+    .hero-bullets { display: flex; flex-direction: column; gap: 12px; }
+
+    .hero-bullet {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 20px;
+      font-weight: 500;
+      color: rgba(23,29,28,0.8);
+    }
+
+    .check-circle {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .check-circle svg { width: 13px; height: 13px; }
+
+    .hero-form-group { display: flex; flex-direction: column; gap: 16px; }
+
+    .amount-input-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 8px 16px -5px rgba(0,0,0,0.15);
+    }
+
+    .amount-input-box span {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(23,29,28,0.8);
+    }
+    .amount-input-box span em {
+      font-style: normal;
+      color: rgba(23,29,28,0.5);
+    }
+
+    .submit-btn {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 12px 40px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      line-height: 1.5;
+    }
+
+    .mail-btn {
+      background: var(--blue);
+      color: #fff;
+      padding: 20px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      box-shadow: 0 8px 30px 0 rgba(4,130,241,0.25);
+    }
+
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .avatars {
+      display: flex;
+      align-items: center;
+    }
+    .avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      margin-right: -20px;
+    }
+    .avatar:last-child { margin-right: 0; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .proof-text {
+      margin-left: 28px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #171d1c;
+    }
+
+    /* Hero right column */
+    .hero-right {
+      position: relative;
+      height: 660px;
+    }
+
+    .hero-circle {
+      position: absolute;
+      left: 50px; top: 60px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 2px dashed rgba(4,130,241,0.2);
+      pointer-events: none;
+    }
+
+    .hero-blob-green {
+      position: absolute;
+      right: 0; top: 180px;
+      width: 170px; height: 85px;
+      background: rgba(4,130,241,0.1);
+      border-radius: 18px;
+      backdrop-filter: blur(5px);
+    }
+    .hero-blob-blue {
+      position: absolute;
+      left: 40px; top: 310px;
+      width: 145px; height: 90px;
+      background: linear-gradient(180deg, rgba(4,130,241,0.15) 0%, rgba(206,228,255,0.2) 100%);
+      border-radius: 18px;
+      backdrop-filter: blur(5px);
+    }
+    .hero-blob-yellow {
+      position: absolute;
+      left: 120px; bottom: 0;
+      width: 360px; height: 195px;
+      background: rgba(249,215,15,0.18);
+      border-radius: 18px;
+      backdrop-filter: blur(1px);
+    }
+
+    .hero-photo {
+      position: absolute;
+      left: 80px; bottom: 0;
+      width: 520px; height: 900px;
+      object-fit: contain;
+      object-position: center bottom;
+    }
+
+    /* AI floating card */
+    .hero-ai-card {
+      position: absolute;
+      right: 0; left: auto; top: 260px;
+      width: 230px;
+      background: #fff;
+      border: 1.5px solid rgba(4,130,241,0.3);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 12px 40px rgba(4,130,241,0.15);
+    }
+    .ai-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .ai-icon-circle {
+      width: 38px; height: 38px;
+      background: var(--teal);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-icon-circle svg { width: 20px; height: 20px; }
+    .ai-card-title { font-size: 13px; font-weight: 700; color: var(--teal); }
+    .ai-card-sub   { font-size: 11px; color: #888; margin-top: 1px; }
+
+    .ai-match-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .ai-match-pct { font-weight: 700; color: var(--cyan); }
+    .ai-match-track {
+      width: 100%; height: 6px;
+      background: #EEF6FF;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .ai-match-fill {
+      height: 100%;
+      width: 94%;
+      background: linear-gradient(90deg, var(--cyan), #4497F5);
+      border-radius: 99px;
+      animation: fillBar 1.4s ease forwards;
+    }
+    @keyframes fillBar { from { width: 0; } to { width: 94%; } }
+
+    .ai-lenders-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .ai-lender-chip {
+      background: var(--bg-ice);
+      border: 1px solid rgba(4,130,241,0.25);
+      border-radius: 99px;
+      padding: 3px 9px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    /* AI-powered pill */
+    .hero-ai-pill {
+      position: absolute;
+      left: 10px; top: 355px;
+      background: var(--yellow);
+      color: var(--navy);
+      border-radius: 99px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 6px 20px rgba(0,30,63,0.25);
+      white-space: nowrap;
+    }
+    .ai-pulse {
+      width: 8px; height: 8px;
+      background: var(--navy);
+      border-radius: 50%;
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    /* AI stat chip bottom */
+    .hero-ai-stat {
+      position: absolute;
+      left: 10px; top: 490px;
+      background: rgba(255,255,255,0.9);
+      border: 1.5px solid rgba(4,130,241,0.3);
+      border-radius: 16px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 24px rgba(4,130,241,0.12);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-stat-icon {
+      width: 32px; height: 32px;
+      background: rgba(4,130,241,0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-stat-icon svg { width: 16px; height: 16px; }
+    .ai-stat-num  { font-size: 16px; font-weight: 800; color: var(--teal); line-height: 1; }
+    .ai-stat-label{ font-size: 10px; color: #888; margin-top: 2px; }
+
+    /* Decorative mini tags */
+    .hero-tag {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-tag-icon {
+      width: 27px; height: 27px;
+      border-radius: 6px;
+      background: var(--cyan);
+      opacity: 0.7;
+    }
+    .hero-tag-lines { display: flex; flex-direction: column; gap: 8px; }
+    .hero-tag-line-short { width: 65px; height: 5px; background: rgba(217,217,217,0.7); border-radius: 12px; }
+    .hero-tag-line-long  { width: 159px; height: 8px; background: #d9d9d9; border-radius: 12px; }
+
+    /* ──────────────── PARTNERS ──────────────── */
+    .partners {
+      background: #F5FAFF;
+      padding: 96px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .partners-label {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .partners-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 100px;
+      width: 100%;
+    }
+
+    .partner-nav {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--cyan);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .partner-nav svg { width: 22px; height: 22px; }
+
+    .partner-logos {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .partner-logo {
+      opacity: 0.5;
+      font-weight: 700;
+      font-size: 18px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .partner-logo img { height: 36px; object-fit: contain; }
+
+    /* ──────────────── TOPIC FINDER ──────────────── */
+    .chat-container {
+      max-width: 780px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chat-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .chat-avatar {
+      width: 42px;
+      height: 42px;
+      background: var(--teal);
+      border-radius: 12px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-bubble {
+      background: #fff;
+      border: 1.5px solid rgba(4,130,241,0.2);
+      border-radius: 0 16px 16px 16px;
+      padding: 20px 24px;
+      box-shadow: 0 4px 16px rgba(4,130,241,0.08);
+      flex: 1;
+    }
+
+    .chat-question {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .chat-sub {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .topic-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-left: 56px;
+    }
+
+    .topic-chip {
+      background: #fff;
+      border: 1.5px solid rgba(4,130,241,0.3);
+      border-radius: 99px;
+      padding: 9px 18px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--teal);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .topic-chip:hover { border-color: var(--cyan); background: var(--bg-ice); }
+
+    .topic-chip.selected {
+      background: var(--teal);
+      color: #fff;
+      border-color: var(--teal);
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 12px;
+      padding-left: 56px;
+      align-items: center;
+    }
+
+    .chat-text-input {
+      flex: 1;
+      background: #fff;
+      border: 1.5px solid rgba(4,130,241,0.3);
+      border-radius: 8px;
+      height: 48px;
+      padding: 0 16px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--teal);
+      outline: none;
+    }
+
+    .chat-text-input:focus { border-color: var(--cyan); }
+    .chat-text-input::placeholder { color: rgba(0,30,63,0.35); }
+
+    .chat-submit {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 13px 24px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .chat-response {
+      padding-left: 56px;
+      display: none;
+    }
+
+    .chat-response.visible { display: block; }
+
+    .chat-response-inner {
+      background: var(--teal);
+      color: #fff;
+      border-radius: 16px 16px 16px 0;
+      padding: 20px 24px;
+      font-size: 15px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .response-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .response-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 99px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .response-cta {
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      margin-top: 4px;
+    }
+
+    /* ──────────────── LENDERS ──────────────── */
+    .lenders {
+      background: #fff;
+      padding: 48px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lenders::before {
+      content: '';
+      position: absolute;
+      right: -100px; top: -20px;
+      width: 552px; height: 552px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,130,241,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .lenders-filter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    .pill-badge {
+      display: inline-block;
+      border: 1px solid var(--teal);
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 16px;
+      color: #001E3F;
+    }
+
+    .lenders-h2 {
+      font-size: 40px;
+      font-weight: 700;
+      color: #001E3F;
+      text-align: center;
+    }
+
+    .lenders-sub {
+      font-size: 16px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 17px;
+      align-items: center;
+    }
+
+    .filter-input {
+      background: #EEF6FF;
+      border: 2px solid rgba(0,30,63,0.7);
+      border-radius: 4px;
+      height: 40px;
+      padding: 0 14px;
+      font-family: inherit;
+      font-size: 14px;
+      color: rgba(49,42,80,0.64);
+      width: 250px;
+      outline: none;
+    }
+
+    .filter-icon-btn {
+      background: #EEF6FF;
+      border: 2px solid rgba(0,30,63,0.7);
+      border-radius: 4px;
+      width: 40px; height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .filter-icon-btn svg { width: 18px; height: 18px; color: var(--teal); }
+
+    .lender-cards-wrap {
+      display: flex;
+      gap: 32px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .lender-cards-wrap::-webkit-scrollbar { display: none; }
+
+    .lender-card {
+      background: #EEF6FF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 11px;
+      min-width: 270px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex-shrink: 0;
+    }
+    .lender-card.featured {
+      background: #EEF6FF;
+      box-shadow: 0 30px 50px -30px rgba(0,30,63,0.2);
+      border-color: var(--border);
+    }
+    .lender-card.faded { opacity: 0.3; }
+
+    .lender-logo-area {
+      height: 102px;
+      display: flex;
+      align-items: center;
+    }
+
+    .lender-name {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .lender-upstart { color: #00c376; }
+    .lender-sofi    { color: #8fd8e3; font-size: 24px; }
+    .lender-zable   { color: #1a1a2e; }
+    .lender-bestegg { color: #2a5f8a; }
+    .lender-discover { color: #231f20; }
+
+    .view-details {
+      font-size: 12px;
+      color: #0482F1;
+      text-align: right;
+      cursor: pointer;
+      display: block;
+      font-weight: 400;
+    }
+
+    hr.card-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .lender-features { display: flex; flex-direction: column; gap: 9px; }
+
+    .feature-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .feature-label { display: flex; align-items: center; gap: 6px; }
+    .feature-value { font-weight: 700; font-family: sans-serif; }
+
+    .check-sm {
+      width: 16px; height: 16px;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    .card-btn {
+      width: 100%;
+      padding: 6px 32px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 17px;
+      line-height: 1.5;
+    }
+    .card-btn.primary {
+      background: var(--yellow);
+      color: var(--navy);
+      border: none;
+      box-shadow: 0 4px 12px rgba(249,215,15,0.4);
+    }
+    .card-btn.outline {
+      background: transparent;
+      color: var(--teal);
+      border: 2px solid var(--cyan);
+    }
+
+    /* ──────────────── PROGRAM CARDS (redesign) ──────────────── */
+    .prog-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      min-width: 260px;
+      max-width: 260px;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(4,130,241,0.06);
+    }
+
+    .prog-card-header {
+      background: var(--teal);
+      padding: 28px 24px 24px;
+    }
+
+    .prog-card-header.accent {
+      background: var(--yellow);
+    }
+
+    .prog-cat {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 10px;
+    }
+
+    .prog-card-header.accent .prog-cat { color: rgba(0,30,63,0.5); }
+
+    .prog-title-card {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .prog-card-header.accent .prog-title-card { color: var(--navy); }
+
+    .prog-card-body {
+      padding: 20px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .prog-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .prog-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .prog-skill {
+      background: var(--bg-ice);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 4px 11px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    .prog-stats {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      letter-spacing: 0.1px;
+    }
+
+    .prog-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .prog-btn.primary {
+      background: var(--yellow);
+      color: var(--navy);
+      border: none;
+      box-shadow: 0 4px 12px rgba(249,215,15,0.35);
+    }
+
+    .prog-btn.outline {
+      background: transparent;
+      color: var(--teal);
+      border: 2px solid var(--cyan);
+    }
+
+    .prog-card.muted {
+      opacity: 0.35;
+    }
+
+    .view-all {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      width: 387px;
+      display: block;
+      margin: 32px auto 0;
+      text-align: center;
+    }
+
+    /* ──────────────── WHY CHOOSE ──────────────── */
+    .why {
+      background: #F5FAFF;
+      padding: 96px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 64px;
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .label-tag {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--yellow);
+      padding: 4px 14px;
+      border-radius: 99px;
+    }
+
+    .section-h2 {
+      font-size: 58px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1.1;
+    }
+
+    .section-p {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--gray);
+      line-height: 32px;
+    }
+
+    .why-cards {
+      display: flex;
+      gap: 56px;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .why-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .vp-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--teal);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .why-card-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1.3;
+    }
+    .why-card-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--gray);
+      line-height: 1.75;
+    }
+
+    /* ──────────────── SERVICES ──────────────── */
+    .services {
+      background: #fff;
+      padding: 48px 150px;
+      position: relative;
+      overflow: hidden;
+    }
+    .services::before {
+      content: '';
+      position: absolute;
+      left: -369px; top: -70px;
+      width: 552px; height: 552px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,130,241,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .services::after {
+      content: '';
+      position: absolute;
+      right: -200px; bottom: 200px;
+      width: 552px; height: 552px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,130,241,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .services-h2 {
+      font-size: 58px;
+      font-weight: 800;
+      color: var(--teal);
+      letter-spacing: -1px;
+      margin-bottom: 32px;
+      line-height: 42px;
+    }
+
+    .services-list {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(0,30,63,0.3);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(25px);
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 30px 0;
+      border-bottom: 1px solid rgba(0,30,63,0.1);
+    }
+    .service-item:last-child { border-bottom: none; }
+
+    .service-num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cyan);
+      flex-shrink: 0;
+      letter-spacing: -1px;
+      min-width: 36px;
+    }
+
+    .service-body { flex: 1; }
+    .service-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 15px;
+    }
+    .service-desc {
+      font-size: 15px;
+      color: var(--teal);
+      line-height: 1.6;
+    }
+
+    .service-arrow {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .service-arrow.filled { background: var(--yellow); color: var(--navy); }
+    .service-arrow.hollow { border: 2px solid var(--cyan); color: var(--cyan); }
+    .service-arrow svg { width: 24px; height: 24px; }
+
+    /* ──────────────── HOW IT WORKS (two-panel) ──────────────── */
+    .services {
+      padding: 0 !important;
+      overflow: visible !important;
+      background: transparent !important;
+      position: static !important;
+    }
+    .services::before, .services::after { display: none !important; }
+    .services-h2 { display: none !important; }
+    .services-list { display: none !important; }
+
+    .services-layout {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      background: var(--teal);
+    }
+
+    .services-left {
+      width: 42%;
+      flex-shrink: 0;
+      position: sticky;
+      top: 88px;
+      height: calc(100vh - 88px);
+      padding: 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .services-left-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 22px;
+    }
+
+    .services-left h2 {
+      font-size: 44px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+
+    .services-left p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      margin-bottom: 40px;
+      max-width: 340px;
+    }
+
+    .services-left-cta {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+
+    .services-right {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      padding: 80px 56px 80px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-margin-top: 110px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .step-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .step-card-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-card-icon svg { width: 20px; height: 20px; }
+
+    .step-card-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 4px;
+    }
+
+    .step-card-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+    }
+
+    /* ──────────────── FAQ ──────────────── */
+    .faq {
+      background: #fff;
+      padding: 80px 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .faq::before {
+      content: '';
+      position: absolute;
+      left: -320px; bottom: 100px;
+      width: 552px; height: 552px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,130,241,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .faq-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .faq-item {
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease;
+    }
+    .faq-item.open {
+      background: #fff;
+      border: 2px solid rgba(0,30,63,0.4);
+      box-shadow: 0 70px 150px -50px rgba(0,30,63,0.2);
+    }
+    .faq-item.closed {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(0,30,63,0.3);
+      backdrop-filter: blur(5px);
+    }
+
+    .faq-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px;
+      gap: 24px;
+    }
+    .faq-q {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    .faq-icon { width: 22px; height: 22px; flex-shrink: 0; color: var(--cyan); }
+
+    .faq-a {
+      padding: 0 30px 30px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--gray);
+      line-height: 32px;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ──────────────── FOOTER ──────────────── */
+    footer {
+      background: var(--teal);
+      border-radius: 100px 100px 0 0;
+      padding: 48px 100px;
+      color: #fff;
+    }
+
+    .footer-logo {
+      margin-bottom: 51px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-logo-icon {
+      width: 32px; height: 32px;
+      border: 2.5px solid #fff;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-logo-icon::before {
+      content: '';
+      width: 12px; height: 12px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+    .footer-logo-icon::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; right: -2px;
+      width: 10px; height: 10px;
+      background: var(--teal);
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+    .footer-logo-clear  { font-size: 22px; font-weight: 800; color: #fff; }
+    .footer-logo-credit { font-size: 22px; font-weight: 800; color: var(--cyan); }
+
+    .footer-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 22px;
+      max-width: 1240px;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { color: #fff; text-decoration: none; font-size: 16px; font-weight: 400; }
+
+    .footer-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .footer-contact-row svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .follow-label { font-size: 16px; font-weight: 700; margin-bottom: 21px; }
+
+    .footer-socials { display: flex; gap: 16px; }
+    .social-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.15);
+    }
+    .social-icon img { width: 24px; height: 24px; object-fit: contain; }
+    .social-icon.li-icon { background: #fff; }
+
+    .footer-hr {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin: 22px 0;
+      max-width: 1440px;
+    }
+
+    .footer-legal {
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: 0.65;
+      max-width: 1240px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <a class="logo" href="#">
+    <img src="guroo-logo-blue.png" alt="Guroo AI" style="height:48px; object-fit:contain;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="programs.html">Courses</a></li>
+    <li><a href="#">How It Works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <button class="nav-cta">
+    Start Learning
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="#001E3F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-bg-blob"></div>
+  <div class="hero-grid">
+
+    <!-- Left column -->
+    <div class="hero-left">
+      <div class="hero-badge-wrap">
+        <span class="hero-badge">Applied Learning</span>
+        <h1>Turn Learning Into<br>Real-World Capability.</h1>
+      </div>
+
+      <div class="hero-bullets">
+        <div class="hero-bullet">
+          <div class="check-circle">
+            <svg viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4L12 1" stroke="#001E3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          Structured programs where you produce real outputs
+        </div>
+        <div class="hero-bullet">
+          <div class="check-circle">
+            <svg viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4L12 1" stroke="#001E3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          AI feedback and visibility into how others think, work, and execute
+        </div>
+        <div class="hero-bullet">
+          <div class="check-circle">
+            <svg viewBox="0 0 13 10" fill="none"><path d="M1 5l4 4L12 1" stroke="#001E3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          Expert-built curriculum you apply directly to your own industry
+        </div>
+      </div>
+
+      <div class="hero-form-group">
+        <div class="amount-input-box">
+          <input type="email" placeholder="Enter your email — join the newsletter" style="border:none;outline:none;font-family:inherit;font-size:15px;font-weight:500;color:rgba(23,29,28,0.8);background:transparent;flex:1;min-width:0;"/>
+          <button class="submit-btn">Join</button>
+        </div>
+        <button class="mail-btn" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+          See If Applied Learning Is Right for You
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div class="hero-right">
+      <div class="hero-circle"></div>
+      <div class="hero-blob-green"></div>
+      <div class="hero-blob-blue"></div>
+      <div class="hero-blob-yellow"></div>
+
+      <!-- Floating tag rows -->
+      <div class="hero-tag" style="left:490px;top:80px;">
+        <div class="hero-tag-icon" style="background:var(--cyan);"></div>
+        <div class="hero-tag-lines">
+          <div class="hero-tag-line-short"></div>
+          <div class="hero-tag-line-long"></div>
+        </div>
+      </div>
+      <div class="hero-tag" style="left:505px;top:128px;opacity:.7;">
+        <div class="hero-tag-icon" style="background:#4497F5;"></div>
+        <div class="hero-tag-lines">
+          <div class="hero-tag-line-short"></div>
+          <div class="hero-tag-line-long"></div>
+        </div>
+      </div>
+      <div class="hero-tag" style="left:520px;top:176px;opacity:.4;">
+        <div class="hero-tag-icon" style="background:#8CBEFB;"></div>
+        <div class="hero-tag-lines">
+          <div class="hero-tag-line-short"></div>
+          <div class="hero-tag-line-long"></div>
+        </div>
+      </div>
+
+      <!-- Hero photo -->
+      <img class="hero-photo"
+           src="hero.png"
+           alt="Professional learner with tablet"/>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHY GUROO AI ══════════════ -->
+<section class="why">
+  <div class="section-head">
+    <span class="label-tag">Why Guroo AI</span>
+    <h2 class="section-h2">Learning That Actually<br>Translates to Real Work</h2>
+    <p class="section-p">No passive watching. Every program puts you in the work immediately.</p>
+  </div>
+
+  <div class="why-cards">
+
+    <!-- Card 1 -->
+    <div class="why-card">
+      <div class="vp-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M13 2L4 13h7l-1 9 11-12h-7L13 2Z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="why-card-title">Application First — No Passive Lectures</h3>
+      <p class="why-card-text">Guroo AI is built around doing, not watching. Every concept is immediately applied to your real business context, so learning sticks and translates into capability you can use from day one.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="why-card">
+      <div class="vp-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 10h6M9 14h4" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="why-card-title">On-Demand AI Feedback, Every Submission</h3>
+      <p class="why-card-text">No waiting for hours, days, or weeks. Every assignment is evaluated instantly against expert-built rubrics. You receive actionable suggestions — not just a grade — so you improve with every iteration.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="why-card">
+      <div class="vp-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.8"/>
+          <path d="M12 6v6l4 2" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="why-card-title">Available Anytime, Anywhere — 24/7</h3>
+      <p class="why-card-text">Guroo AI makes expertise available around the clock through any device. No schedules, no cohort start dates, no deadlines. Learn on your schedule and pick up exactly where you left off.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ FEATURED PROGRAMS ══════════════ -->
+<section class="lenders">
+  <div class="lenders-filter">
+    <span class="pill-badge">Featured Programs</span>
+    <h2 class="lenders-h2">Find the Program That Moves You Forward and Up</h2>
+    <p class="lenders-sub">Every program is self-paced, application-first, and backed by AI feedback on every assignment.</p>
+  </div>
+
+  <div class="lender-cards-wrap">
+
+    <!-- Card 1 – AI Fluency Program -->
+    <div class="prog-card">
+      <div class="prog-card-header accent">
+        <div class="prog-cat">AI &amp; Strategy</div>
+        <div class="prog-title-card">AI Fluency Program for Executives</div>
+      </div>
+      <div class="prog-card-body">
+        <p class="prog-desc">Builds AI decision fluency, equipping senior executives to identify, validate, and lead AI initiatives within their own organizations.</p>
+        <div class="prog-skills">
+          <span class="prog-skill">AI Strategy</span>
+          <span class="prog-skill">Leadership</span>
+          <span class="prog-skill">Decision-Making</span>
+        </div>
+        <div class="prog-stats">8 Modules &nbsp;·&nbsp; 12 Weeks &nbsp;·&nbsp; Self-Paced</div>
+        <a class="prog-btn primary" href="https://learning.guroo.io/login">Start Learning</a>
+      </div>
+    </div>
+
+    <!-- Card 2 – Prompt Engineering -->
+    <div class="prog-card">
+      <div class="prog-card-header">
+        <div class="prog-cat">AI &amp; Automation</div>
+        <div class="prog-title-card">Prompt Engineering for Professionals</div>
+      </div>
+      <div class="prog-card-body">
+        <p class="prog-desc">Learn to design, test, and refine prompts that get real results from AI tools. Apply prompt engineering to your own workflows, documents, and decisions.</p>
+        <div class="prog-skills">
+          <span class="prog-skill">Prompt Design</span>
+          <span class="prog-skill">AI Tools</span>
+          <span class="prog-skill">Workflow</span>
+        </div>
+        <div class="prog-stats">6 Modules &nbsp;·&nbsp; 4–6 Weeks &nbsp;·&nbsp; Self-Paced</div>
+        <button class="prog-btn outline" style="cursor:default;opacity:0.5;" disabled>Coming Soon</button>
+      </div>
+    </div>
+
+    <!-- Card 3 – Workflow Automation -->
+    <div class="prog-card">
+      <div class="prog-card-header">
+        <div class="prog-cat">Automation</div>
+        <div class="prog-title-card">AI-Powered Workflow Automation</div>
+      </div>
+      <div class="prog-card-body">
+        <p class="prog-desc">Identify the right processes to automate, build no-code/low-code AI workflows, and measure the impact — without needing an engineering team.</p>
+        <div class="prog-skills">
+          <span class="prog-skill">Automation</span>
+          <span class="prog-skill">No-Code</span>
+          <span class="prog-skill">Process Design</span>
+        </div>
+        <div class="prog-stats">7 Modules &nbsp;·&nbsp; 5–6 Weeks &nbsp;·&nbsp; Self-Paced</div>
+        <button class="prog-btn outline" style="cursor:default;opacity:0.5;" disabled>Coming Soon</button>
+      </div>
+    </div>
+
+    <!-- Card 4 – Leading AI Teams -->
+    <div class="prog-card">
+      <div class="prog-card-header">
+        <div class="prog-cat">Leadership</div>
+        <div class="prog-title-card">Leading AI-Augmented Teams</div>
+      </div>
+      <div class="prog-card-body">
+        <p class="prog-desc">Develop the frameworks to manage teams where humans and AI tools work side by side — covering delegation, accountability, and performance in an AI-first environment.</p>
+        <div class="prog-skills">
+          <span class="prog-skill">People Management</span>
+          <span class="prog-skill">AI Adoption</span>
+          <span class="prog-skill">Org Design</span>
+        </div>
+        <div class="prog-stats">6 Modules &nbsp;·&nbsp; 4–5 Weeks &nbsp;·&nbsp; Self-Paced</div>
+        <button class="prog-btn outline" style="cursor:default;opacity:0.5;" disabled>Coming Soon</button>
+      </div>
+    </div>
+
+    <!-- Card 5 – Coming soon (faded) -->
+    <div class="prog-card muted">
+      <div class="prog-card-header">
+        <div class="prog-cat">Coming Soon</div>
+        <div class="prog-title-card">Building an AI-Ready Organization</div>
+      </div>
+      <div class="prog-card-body">
+        <p class="prog-desc">A strategic program for senior leaders on how to assess, plan, and execute an organization-wide AI transformation from the inside out.</p>
+        <div class="prog-skills">
+          <span class="prog-skill">AI Strategy</span>
+          <span class="prog-skill">Change Mgmt</span>
+          <span class="prog-skill">Transformation</span>
+        </div>
+        <div class="prog-stats">In development &nbsp;·&nbsp; Self-Paced</div>
+        <button class="prog-btn outline">Notify Me</button>
+      </div>
+    </div>
+
+  </div>
+
+  <a class="view-all" href="programs.html" style="text-decoration:none; display:block;">View All Programs</a>
+</section>
+
+<!-- ══════════════ HOW IT WORKS ══════════════ -->
+<section class="services" id="how-it-works">
+  <h2 class="services-h2">How It Works</h2>
+  <div class="services-list"></div>
+
+  <div class="services-layout">
+
+    <!-- Left sticky panel -->
+    <div class="services-left">
+      <div class="services-left-label">How It Works</div>
+      <h2>Learning by doing.<br>Every step of<br>the way.</h2>
+      <p>Turn each concept into real work using your own business context — then get instant AI feedback to keep improving.</p>
+      <button class="services-left-cta" onclick="window.location='programs.html'">Browse Programs</button>
+    </div>
+
+    <!-- Right scrollable cards -->
+    <div class="services-right">
+
+      <div class="step-card" id="step-0">
+        <div class="step-card-icon">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M4 4h12v12H4V4z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 8h6M7 11h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="step-card-name">Learn</div>
+        <p class="step-card-desc">Executive-grade concepts distilled into focused briefs. Study real cases and frameworks built by subject-matter experts — no fluff, no filler, just the knowledge that drives results.</p>
+      </div>
+
+      <div class="step-card" id="step-1">
+        <div class="step-card-icon">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M13 3l4 4-9 9H4v-4L13 3z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="step-card-name">Apply</div>
+        <p class="step-card-desc">Complete hands-on work using your real business context. Every lesson ends with a practical assignment grounded in your own organization, industry, or professional goals.</p>
+      </div>
+
+      <div class="step-card" id="step-2">
+        <div class="step-card-icon">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M3 13l4-4 3 3 4-5 3 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="step-card-name">Improve</div>
+        <p class="step-card-desc">AI feedback based on expert-built rubrics. Every submission is scored and returned with actionable suggestions. You'll know exactly what to strengthen and why — immediately, every time.</p>
+      </div>
+
+      <div class="step-card" id="step-3">
+        <div class="step-card-icon">
+          <svg viewBox="0 0 20 20" fill="none"><circle cx="7" cy="8" r="2.5" stroke="white" stroke-width="1.5"/><circle cx="13" cy="8" r="2.5" stroke="white" stroke-width="1.5"/><path d="M2 16c0-2 2-3 5-3s5 1 5 3M11 13c2 0 4 1 4 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="step-card-name">Contextualize</div>
+        <p class="step-card-desc">Every module is designed to meet you where you work. You bring your own industry context, role, and real challenges — so what you learn maps directly to what you do, not a generic case study.</p>
+      </div>
+
+      <div class="step-card" id="step-4">
+        <div class="step-card-icon">
+          <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="white" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="step-card-name">Self-Paced</div>
+        <p class="step-card-desc">Learn on your schedule and pick up exactly where you left off — from any device, at any time. Self-paced doesn't mean solo.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section class="faq">
+  <div class="section-head">
+    <span class="label-tag">FAQ</span>
+    <h2 class="section-h2">Frequently asked questions</h2>
+    <p class="section-p">There's no such thing as too many questions</p>
+  </div>
+
+  <div class="faq-items">
+
+    <div class="faq-item open">
+      <div class="faq-trigger" onclick="toggleFaq(this)">
+        <span class="faq-q">How does the AI feedback work?</span>
+        <svg class="faq-icon" viewBox="0 0 22 22" fill="none"><line x1="3" y1="11" x2="19" y2="11" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <p class="faq-a">Every assignment you submit is evaluated instantly by our AI, which scores your work against rubrics designed by subject-matter experts. You receive specific, actionable suggestions — not just a grade — so you always know what to improve and why. Feedback is immediate; there's no waiting for a human reviewer.</p>
+    </div>
+
+    <div class="faq-item closed">
+      <div class="faq-trigger" onclick="toggleFaq(this)">
+        <span class="faq-q">Who's behind the curriculum?</span>
+        <svg class="faq-icon" viewBox="0 0 22 22" fill="none"><line x1="3" y1="11" x2="19" y2="11" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/><line x1="11" y1="3" x2="11" y2="19" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <p class="faq-a">Each program is designed by practitioners who have both the academic pedigree and the real-world track record to back it up. Our curriculum builders are graduates of Harvard, MIT, and Duke, with 10+ years of deep experience in their respective fields. They didn't just study these topics — they've lived them. That's what makes Guroo AI programs genuinely different: the rigor of elite education, applied to the realities of modern professional life.</p>
+    </div>
+
+    <div class="faq-item closed">
+      <div class="faq-trigger" onclick="toggleFaq(this)">
+        <span class="faq-q">What does self-paced actually mean here?</span>
+        <svg class="faq-icon" viewBox="0 0 22 22" fill="none"><line x1="3" y1="11" x2="19" y2="11" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/><line x1="11" y1="3" x2="11" y2="19" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <p class="faq-a">Self-paced means you're in control. Each program comes with a recommended completion window to help you stay on track and get the most out of the material — but it's exactly that: a recommendation, not a requirement. You're free to move through modules at whatever speed works for your schedule, revisit content, and explore areas that are most relevant to your work. The structure is there to guide you, not constrain you.</p>
+    </div>
+
+    <div class="faq-item closed">
+      <div class="faq-trigger" onclick="toggleFaq(this)">
+        <span class="faq-q">How is Guroo AI different from other online learning platforms?</span>
+        <svg class="faq-icon" viewBox="0 0 22 22" fill="none"><line x1="3" y1="11" x2="19" y2="11" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/><line x1="11" y1="3" x2="11" y2="19" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <p class="faq-a">Most platforms prioritize content delivery — passive video courses you watch and quickly forget. Guroo AI is application-first: every concept is immediately put to work using your real business context. Combined with AI-powered feedback on every submission and cohort visibility, you build measurable capability, not just completion certificates.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-logo">
+    <img src="guroo-logo-blue.png" alt="Guroo AI" style="height:48px; object-fit:contain; filter: brightness(0) invert(1);">
+  </div>
+
+  <div class="footer-cols">
+    <div>
+      <ul class="footer-links">
+        <li><a href="programs.html">Courses</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-contact-row">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="1.5" y="3.5" width="15" height="11" rx="1.5" stroke="white" stroke-width="1.5"/><path d="M1.5 6l7.5 4.5L16.5 6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        hello@guroo.ai
+      </div>
+    </div>
+    <div>
+      <p class="follow-label">Follow us</p>
+      <div class="footer-socials">
+        <div class="social-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </div>
+        <div class="social-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+        </div>
+        <div class="social-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="footer-hr"/>
+
+  <p class="footer-legal">
+    &copy; 2025 Guroo AI. All rights reserved. Guroo AI provides structured, application-first learning programs powered by AI feedback.
+    Our programs are designed to build real-world capability through hands-on work, expert-built rubrics, and cohort visibility.
+    Results may vary based on individual effort and application. Guroo AI is not affiliated with any academic institution.
+  </p>
+</footer>
+
+<script>
+  function goToStep(navItem, targetId) {
+    document.querySelectorAll('.step-nav-item').forEach(i => i.classList.remove('active'));
+    navItem.classList.add('active');
+    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Scroll-spy: highlight nav item as step cards enter view
+  const stepCards = document.querySelectorAll('.step-card');
+  const stepNavItems = document.querySelectorAll('.step-nav-item');
+
+  const stepObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        stepNavItems.forEach(item => {
+          const isActive = item.dataset.target === id;
+          item.classList.toggle('active', isActive);
+        });
+        stepCards.forEach(c => c.classList.toggle('active-card', c.id === id));
+      }
+    });
+  }, { threshold: 0.4 });
+
+  stepCards.forEach(card => stepObserver.observe(card));
+
+  function toggleChip(chip) {
+    chip.classList.toggle('selected');
+  }
+
+  function submitTopics() {
+    const selected = [...document.querySelectorAll('.topic-chip.selected')].map(c => c.textContent.trim());
+    const custom = document.getElementById('customTopic').value.trim();
+    if (custom) selected.push(custom);
+
+    if (selected.length === 0) {
+      document.getElementById('customTopic').focus();
+      return;
+    }
+
+    const tagsEl = document.getElementById('responseTags');
+    tagsEl.innerHTML = selected.map(t => `<span class="response-tag">${t}</span>`).join('');
+
+    const response = document.getElementById('chatResponse');
+    response.classList.add('visible');
+    setTimeout(() => response.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  function toggleFaq(trigger) {
+    const item = trigger.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(el => {
+      el.classList.remove('open');
+      el.classList.add('closed');
+      const icon = el.querySelector('.faq-icon');
+      icon.innerHTML = '<line x1="3" y1="11" x2="19" y2="11" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/><line x1="11" y1="3" x2="11" y2="19" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/>';
+    });
+
+    if (!isOpen) {
+      item.classList.remove('closed');
+      item.classList.add('open');
+      const icon = item.querySelector('.faq-icon');
+      icon.innerHTML = '<line x1="3" y1="11" x2="19" y2="11" stroke="#0482F1" stroke-width="2" stroke-linecap="round"/>';
+    }
+  }
+</script>
+
+</body>
+</html>
