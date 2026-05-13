@@ -394,6 +394,89 @@
       opacity: 0.65;
       max-width: 1240px;
     }
+
+    /* ──────────────── MOBILE NAV ──────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 500;
+      flex-direction: column;
+      padding: 20px 24px 32px;
+      overflow-y: auto;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .mobile-nav-close { background: none; border: none; cursor: pointer; padding: 8px; }
+    .mobile-nav-links { list-style: none; display: flex; flex-direction: column; }
+    .mobile-nav-links li a {
+      display: block;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0,30,63,0.08);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--teal);
+      text-decoration: none;
+    }
+    .mobile-nav-links li a.active { color: var(--cyan); }
+    .mobile-nav-cta {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      margin-top: 32px;
+    }
+
+    /* ──────────────── RESPONSIVE ──────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none !important; }
+      .nav-cta-wrap { display: none !important; }
+      .nav-hamburger { display: flex !important; }
+
+      .page-header { padding: 48px 20px 56px; }
+      .page-header h1 { font-size: 34px; }
+      .page-header p { font-size: 16px; }
+
+      .search-bar-wrap { padding: 24px 20px; flex-wrap: wrap; }
+      .search-input { max-width: 100%; width: 100%; }
+
+      .programs-section { padding: 32px 20px 56px; }
+      .programs-grid { grid-template-columns: 1fr; }
+
+      .bottom-cta { padding: 56px 20px; }
+      .bottom-cta h2 { font-size: 28px; }
+
+      footer { border-radius: 40px 40px 0 0; padding: 40px 20px; }
+      .footer-cols { grid-template-columns: 1fr 1fr; gap: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 { font-size: 26px; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .footer-cols { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -409,13 +492,32 @@
     <li><a href="index.html#how-it-works">How It Works</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="https://learning.guroo.io/login" style="text-decoration:none;">
+  <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Open menu">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 5h16M3 11h16M3 17h16" stroke="#001E3F" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <a href="https://learning.guroo.io/login" style="text-decoration:none;" class="nav-cta-wrap">
     <button class="nav-cta">
       Start Learning
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="#001E3F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </a>
 </nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="guroo-logo-blue.png" alt="Guroo AI" style="height:36px; object-fit:contain;">
+    <button class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Close menu">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 5l12 12M17 5L5 17" stroke="#001E3F" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="programs.html" class="active">Courses</a></li>
+    <li><a href="index.html#how-it-works">How It Works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="https://learning.guroo.io/login" class="mobile-nav-cta">Start Learning →</a>
+</div>
 
 <!-- ══════════════ PAGE HEADER ══════════════ -->
 <section class="page-header">
@@ -608,6 +710,12 @@
 </footer>
 
 <script>
+  function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+
   function filterCards(query) {
     const q = query.toLowerCase();
     document.querySelectorAll('.prog-card').forEach(card => {
